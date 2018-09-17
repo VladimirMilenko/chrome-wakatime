@@ -4,7 +4,7 @@
       "url": "github.com",
       "trackBy": "title",
       "include": ["Pull", "SEOshop/Backend", "by"],
-      "exclude": ["VladimirMilenko"],
+      "exclude": [],
       "project": "backend",
       "type": "domain",
       "category": "code reviewing"
@@ -13,7 +13,8 @@
       "url": "shop1.webshopapp.dev",
       "trackBy": "url",
       "include": ["webshopapp.dev"],
-      "project": "backend"
+      "project": "backend",
+      "category": "debugging"
     }
   ]
 }
