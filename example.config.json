@@ -1,0 +1,19 @@
+{
+  "config": [
+    {
+      "url": "github.com",
+      "trackBy": "title",
+      "include": ["Pull", "SEOshop/Backend", "by"],
+      "exclude": ["VladimirMilenko"],
+      "project": "backend",
+      "type": "domain",
+      "category": "code reviewing"
+    },
+    {
+      "url": "shop1.webshopapp.dev",
+      "trackBy": "url",
+      "include": ["webshopapp.dev"],
+      "project": "backend"
+    }
+  ]
+}
