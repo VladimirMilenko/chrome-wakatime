@@ -28,6 +28,7 @@
     "@atlaskit/navigation-next": "^3.6.2",
     "@atlaskit/page": "^8.0.4",
     "@atlaskit/toggle": "^5.0.7",
+    "@types/path-to-regexp": "^1.7.0",
     "axios": "^0.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
@@ -36,6 +37,7 @@
     "emotion": "^9.2.6",
     "jquery": "^3.3.1",
     "moment": "^2.22.2",
+    "path-to-regexp": "^2.4.0",
     "popper.js": "^1.14.3",
     "react": "16.4.2",
     "react-addons-css-transition-group": "^15.6.2",
@@ -44,6 +46,7 @@
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.4.0",
     "styled-components": "^3.4.5",
+    "url": "^0.11.0",
     "webextension-polyfill": "^0.3.1",
     "webextensions-api-fake": "^0.5.1"
   }

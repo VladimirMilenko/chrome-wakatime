@@ -4,60 +4,36 @@ import axios from "axios";
 import moment from "moment";
 import config from "../config";
 import browser from "../browser-import";
-
+import pathToRegexp from "path-to-regexp";
 // Helpers
-import getDomainFromUrl from "./../helpers/getDomainFromUrl";
 
+import { wildcardToRegExp } from "../helpers/matchPath";
 import changeExtensionState from "../helpers/changeExtensionState";
 import in_array from "./../helpers/in_array";
+import GithubOrganizationStrategy from "./track-strategies/GithubOrganizationPR";
+import DefaultStrategy from "./track-strategies/Default";
 
-const isExcluded = (value, exclude = []) => {
-  return exclude.some(x => value.includes(x));
+const strategies = {
+  "github-organization-pr": GithubOrganizationStrategy,
+  default: DefaultStrategy
 };
 
-const isIncluded = (value, include = []) => {
-  return include.every(x => value.includes(x));
+const useStrategy = (tab, config) => {
+  const strategy = strategies[config.strategy](config);
+  return strategy(tab);
 };
 
 const getHeartbeat = (logConfig, tab) => {
-  const tabUrl = tab.url;
-  const matchingUrls = logConfig.filter(option => {
-    const { trackBy, include, url, exclude } = option;
+  for (let config of logConfig) {
+    const re = wildcardToRegExp(config.url);
+    if (!re.exec(tab.url)) continue;
 
-    if (tabUrl.includes(url)) {
-      if (include.length && trackBy !== "host") {
-        const target = tab[trackBy];
-        if (
-          isIncluded(target, include || []) &&
-          !isExcluded(target, exclude || [])
-        ) {
-          return true;
-        }
-      }
-      if (include.length && trackBy === "host") {
-        const target = tab.url;
-        if (isIncluded(target, include) && !isExcluded(target, exclude || [])) {
-          return true;
-        }
-      }
-      return false;
+    if (!config.strategy) config.strategy = "default";
+
+    if (config.strategy && strategies[config.strategy]) {
+      return useStrategy(tab, config);
     }
-    return false;
-  });
-
-  if (matchingUrls.length) {
-    const match = matchingUrls[0];
-    return {
-      project: match.project,
-      url:
-        match.trackBy === "host"
-          ? getDomainFromUrl(tab.url)
-          : tab[match.trackBy],
-      type: match.type,
-      ...(match.category ? { category: match.category } : {})
-    };
   }
-  return null;
 };
 
 class WakaTimeCore {
@@ -153,7 +129,7 @@ class WakaTimeCore {
    */
   _preparePayload(heartbeat, type, debug = false) {
     return {
-      entity: heartbeat.url,
+      entity: heartbeat.entity,
       type: heartbeat.type || type,
       ...(heartbeat.category ? { category: heartbeat.category } : {}),
       time: moment().format("X"),

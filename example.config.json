@@ -1,20 +1,18 @@
 {
   "config": [
     {
-      "url": "github.com",
-      "trackBy": "title",
-      "include": ["Pull", "SEOshop/Backend", "by"],
-      "exclude": [],
-      "project": "backend",
-      "type": "domain",
-      "category": "code reviewing"
-    },
-    {
-      "url": "shop1.webshopapp.dev",
+      "url": "*.webshopapp.*",
       "trackBy": "url",
-      "include": ["webshopapp.dev"],
+      "include": ["webshopapp"],
       "project": "backend",
       "category": "debugging"
+    },
+    {
+      "url": "github.com",
+      "strategy": "github-organization-pr",
+      "whitelist": ["SEOShop", "lightspeedretail"],
+      "type": "domain",
+      "category": "code reviewing"
     }
   ]
 }
