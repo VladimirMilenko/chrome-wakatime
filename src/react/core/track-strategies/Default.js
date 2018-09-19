@@ -15,7 +15,7 @@ const Strategy = config => tab => {
   const matchingUrls = [config].filter(option => {
     const { trackBy, include, url, exclude } = option;
 
-    if (wildcardToRegExp(url).exec(tabUrl)) {
+    if (new RegExp(url.replace(".", ".").replace("*", ".*")).exec(tabUrl)) {
       if (include.length && trackBy !== "host") {
         const target = tab[trackBy];
         if (

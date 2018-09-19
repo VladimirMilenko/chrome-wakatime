@@ -4,7 +4,8 @@ import axios from "axios";
 import moment from "moment";
 import config from "../config";
 import browser from "../browser-import";
-import pathToRegexp from "path-to-regexp";
+import mm from "micromatch";
+import * as url from "url";
 // Helpers
 
 import { wildcardToRegExp } from "../helpers/matchPath";
@@ -25,8 +26,8 @@ const useStrategy = (tab, config) => {
 
 const getHeartbeat = (logConfig, tab) => {
   for (let config of logConfig) {
-    const re = wildcardToRegExp(config.url);
-    if (!re.exec(tab.url)) continue;
+    var lineRe = new RegExp(config.url.replace(".", ".").replace("*", ".*"));
+    if (!lineRe.exec(tab.url)) continue;
 
     if (!config.strategy) config.strategy = "default";
 
