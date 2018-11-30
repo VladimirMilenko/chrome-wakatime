@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel src/react/index.html",
-    "build": "NODE_ENV=production parcel build src/react/popup.html src/react/events.js -d dist/ --no-cache --public-url /dist/",
+    "build": "cross-env NODE_ENV=production parcel build src/react/popup.html src/react/events.js -d dist/ --no-cache --public-url /dist/",
     "watch-react": "parcel watch src/react/popup.html src/react/events.js -d dist/ --no-cache --public-url /dist/",
     "watch": "parcel watch src/popup.html src/options.html src/devtools.html src/js/events.js --public-url /dist/ --no-cache"
   },
@@ -13,6 +13,7 @@
   "license": "ISC",
   "devDependencies": {
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "cross-env": "^5.2.0",
     "less": "^3.8.1",
     "node-sass": "^4.9.3",
     "parcel-bundler": "^1.9.7"
