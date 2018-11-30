@@ -2,7 +2,13 @@
 
 ## Build
 
-Run `npm run build` to build the plugin.
+Run to build the plugin:
+```
+npm i -g yarn
+yarn
+npm run build
+```
+
 
 ## Installation
 
